@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HolySpace - Biblia de Escritorio con Pomodoros</title>
+    <meta name="description" content="HolySpace: Una biblia de escritorio minimalista, rápida y cómoda con sistema de pomodoros y subrayado. La experiencia perfecta para el estudio bíblico.">
+    <link rel="icon" type="image/png" sizes="256x256" href="logo/app-icon-256.png">
+    <link rel="apple-touch-icon" sizes="256x256" href="logo/app-icon-256.png">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RS2B3W4587"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-RS2B3W4587');
+    </script>
+    
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAnalytics } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js';
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyDSMgdvfOX6NwueluGkOx06R9jS1BwN4yU",
+            authDomain: "holyspace-60ec1.firebaseapp.com",
+            projectId: "holyspace-60ec1",
+            storageBucket: "holyspace-60ec1.firebasestorage.app",
+            messagingSenderId: "1095731378645",
+            appId: "1:1095731378645:web:c43f64b944a9aecf02a55c",
+            measurementId: "G-RS2B3W4587"
+        };
+        
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        
+        window.firebaseAnalytics = analytics;
+    </script>
+</head>
+<body>
+    <!-- Animación de fondo -->
+    <div class="background-animation">
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+            <div class="shape shape-5"></div>
+            <div class="shape shape-6"></div>
+        </div>
+    </div>
+
+    <!-- Navegación -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="logo/app-icon-256.png" alt="HolySpace Logo" class="logo-img">
+            </div>
+            <div class="nav-links">
+                <a href="#features" class="nav-link" data-es="Características" data-en="Features">Características</a>
+                <a href="#download" class="nav-link download-btn" data-es="Descargar" data-en="Download">Descargar</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sección Hero -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="app-brand">
+                    <h1 class="app-name">HolySpace</h1>
+                    <p class="app-subtitle" data-es="App de Escritorio" data-en="Desktop App">App de Escritorio</p>
+                </div>
+                <h2 class="hero-title">
+                    <span class="title-line" data-es="Tu Biblia de Escritorio" data-en="Your Desktop Bible">Tu Biblia de Escritorio</span>
+                    <span class="title-line highlight" data-es="Minimalista y Rápida" data-en="Minimalist and Fast">Minimalista y Rápida</span>
+                </h2>
+                <p class="hero-description" data-es="HolySpace combina la lectura bíblica con la técnica Pomodoro para una experiencia de estudio enfocada y productiva. Subraya, organiza y profundiza en la Palabra como nunca antes." data-en="HolySpace combines biblical reading with the Pomodoro technique for a focused and productive study experience. Highlight, organize and deepen in the Word like never before.">
+                    HolySpace combina la lectura bíblica con la técnica Pomodoro para una experiencia de estudio 
+                    enfocada y productiva. Subraya, organiza y profundiza en la Palabra como nunca antes.
+                </p>
+                <div class="hero-buttons">
+                    <button class="btn-primary">
+                        <span data-es="Descargar Ahora" data-en="Download Now">Descargar Ahora</span>
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7,10 12,15 17,10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                    </button>
+                    <a href="https://www.paypal.com/donate/?hosted_button_id=T3B45ZMTT9D34" target="_blank" class="btn-donate">
+                        <span data-es="💝 Apoya el Proyecto" data-en="💝 Support the Project">💝 Apoya el Proyecto</span>
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                        </svg>
+                    </a>
+                </div>
+                <div class="hero-video">
+                    <video class="demo-video" autoplay muted loop playsinline>
+                        <source src="Video/muestreo.mp4" type="video/mp4">
+                        <p data-es="Tu navegador no soporta videos HTML5" data-en="Your browser does not support HTML5 video">Tu navegador no soporta videos HTML5</p>
+                    </video>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="app-preview">
+                    <div class="app-window">
+                        <div class="window-header">
+                            <div class="window-controls">
+                                <span class="control close"></span>
+                                <span class="control minimize"></span>
+                                <span class="control maximize"></span>
+                            </div>
+                            <span class="window-title">HolySpace</span>
+                        </div>
+                        <div class="app-content">
+                            <div class="bible-text">
+                                <h3>Juan 3:16</h3>
+                                <p data-es="Porque de tal manera amó Dios al mundo, que ha dado a su Hijo unigénito, para que todo aquel que en él cree, no se pierda, mas tenga vida eterna." data-en="For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.">Porque de tal manera amó Dios al mundo, que ha dado a su Hijo unigénito, para que todo aquel que en él cree, no se pierda, mas tenga vida eterna.</p>
+                            </div>
+                            <div class="pomodoro-timer">
+                                <div class="timer-circle">
+                                    <span class="timer-text">25:00</span>
+                                </div>
+                                <div class="timer-controls">
+                                    <button class="timer-btn">▶</button>
+                                    <button class="timer-btn">⏸</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Características -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title" data-es="Características Principales" data-en="Main Features">Características Principales</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                        </svg>
+                    </div>
+                    <h3 data-es="Lectura Minimalista" data-en="Minimalist Reading">Lectura Minimalista</h3>
+                    <p data-es="Interfaz limpia y enfocada que elimina distracciones para una experiencia de lectura pura y contemplativa." data-en="Clean and focused interface that eliminates distractions for a pure and contemplative reading experience.">Interfaz limpia y enfocada que elimina distracciones para una experiencia de lectura pura y contemplativa.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12,6 12,12 16,14"></polyline>
+                        </svg>
+                    </div>
+                    <h3 data-es="Pomodoros Integrados" data-en="Integrated Pomodoros">Pomodoros Integrados</h3>
+                    <p data-es="Sistema de temporizador Pomodoro integrado para sesiones de estudio estructuradas y productivas." data-en="Integrated Pomodoro timer system for structured and productive study sessions.">Sistema de temporizador Pomodoro integrado para sesiones de estudio estructuradas y productivas.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 data-es="Subrayado Inteligente" data-en="Smart Highlighting">Subrayado Inteligente</h3>
+                    <p data-es="Resalta versículos importantes con colores personalizables y organiza tus notas de manera intuitiva." data-en="Highlight important verses with customizable colors and organize your notes intuitively.">Resalta versículos importantes con colores personalizables y organiza tus notas de manera intuitiva.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                        </svg>
+                    </div>
+                    <h3 data-es="Ultra Rápida" data-en="Ultra Fast">Ultra Rápida</h3>
+                    <p data-es="Optimizada para velocidad máxima. Navega entre libros, capítulos y versículos instantáneamente." data-en="Optimized for maximum speed. Navigate between books, chapters and verses instantly.">Optimizada para velocidad máxima. Navega entre libros, capítulos y versículos instantáneamente.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Demo -->
+    <section id="demo" class="demo">
+        <div class="container">
+            <h2 class="section-title" data-es="Experiencia HolySpace" data-en="HolySpace Experience">Experiencia HolySpace</h2>
+            <div class="demo-content">
+                <div class="demo-text">
+                    <h3 data-es="Adquiere sabiduría, adquiere inteligencia" data-en="Get wisdom, get understanding">Adquiere sabiduría, adquiere inteligencia</h3>
+                    <p class="verse-reference" data-es="Proverbios 4:5" data-en="Proverbs 4:5">Proverbios 4:5</p>
+                    <p data-es="Tenemos la Biblia sin publicidades ni distracciones. Cada sesión de estudio es una oportunidad para crecer en sabiduría y conocimiento del Señor." data-en="We have the Bible without ads or distractions. Each study session is an opportunity to grow in wisdom and knowledge of the Lord.">Tenemos la Biblia sin publicidades ni distracciones. Cada sesión de estudio es una oportunidad para crecer en sabiduría y conocimiento del Señor.</p>
+                    <ul class="demo-features">
+                        <li data-es="✓ Lectura sin distracciones" data-en="✓ Distraction-free reading">✓ Lectura sin distracciones</li>
+                        <li data-es="✓ Temporizador Pomodoro integrado" data-en="✓ Integrated Pomodoro timer">✓ Temporizador Pomodoro integrado</li>
+                        <li data-es="✓ Sistema de subrayado avanzado" data-en="✓ Advanced highlighting system">✓ Sistema de subrayado avanzado</li>
+                        <li data-es="✓ Navegación ultrarrápida" data-en="✓ Ultra-fast navigation">✓ Navegación ultrarrápida</li>
+                        <li data-es="✓ Interfaz minimalista y elegante" data-en="✓ Minimalist and elegant interface">✓ Interfaz minimalista y elegante</li>
+                        <li data-es="✓ 100% Offline - No requiere internet" data-en="✓ 100% Offline - No internet required">✓ 100% Offline - No requiere internet</li>
+                    </ul>
+                </div>
+                <div class="demo-visual">
+                    <div class="demo-screenshots">
+                        <div class="screenshot screenshot-1">
+                            <div class="screenshot-content">
+                                <div class="bible-interface">
+                                    <div class="verse-highlight" data-es='"Porque de tal manera amó Dios al mundo..."' data-en='"For God so loved the world..."'>"Porque de tal manera amó Dios al mundo..."</div>
+                                    <div class="highlight-toolbar">
+                                        <button class="highlight-btn yellow"></button>
+                                        <button class="highlight-btn blue"></button>
+                                        <button class="highlight-btn green"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="screenshot screenshot-2">
+                            <div class="screenshot-content">
+                                <div class="pomodoro-interface">
+                                    <div class="pomodoro-display">25:00</div>
+                                    <div class="pomodoro-progress"></div>
+                                    <div class="pomodoro-status" data-es="Tiempo de Estudio" data-en="Study Time">Tiempo de Estudio</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Descarga -->
+    <section id="download" class="download">
+        <div class="container">
+            <div class="download-content">
+                <h2 data-es="Tu Palabra es lámpara a mis pies" data-en="Your Word is a lamp to my feet">Tu Palabra es lámpara a mis pies</h2>
+                <p data-es="Como dice el Salmo 119:105, la Palabra de Dios ilumina nuestro camino. Descarga HolySpace y permite que cada versículo transforme tu corazón y mente en cada sesión de estudio." data-en="As Psalm 119:105 says, God's Word illuminates our path. Download HolySpace and let each verse transform your heart and mind in every study session.">Como dice el Salmo 119:105, la Palabra de Dios ilumina nuestro camino. Descarga HolySpace y permite que cada versículo transforme tu corazón y mente en cada sesión de estudio.</p>
+                <div class="download-buttons">
+                    <button class="download-btn primary">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7,10 12,15 17,10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        <span data-es="Descargar para Windows" data-en="Download for Windows">Descargar para Windows</span>
+                    </button>
+                    <button class="download-btn secondary">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7,10 12,15 17,10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        <span data-es="Descargar para macOS" data-en="Download for macOS">Descargar para macOS</span>
+                    </button>
+                </div>
+                <div class="download-info">
+                    <p data-es="Gratis • Sin anuncios • Diseñado con amor" data-en="Free • No ads • Designed with love">Gratis • Sin anuncios • Diseñado con amor</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="logo/app-icon-256.png" alt="HolySpace Logo" class="footer-logo-img">
+                    <p data-es="Tu compañero perfecto para el estudio bíblico" data-en="Your perfect companion for biblical study">Tu compañero perfecto para el estudio bíblico</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 data-es="Producto" data-en="Product">Producto</h4>
+                        <a href="#features" data-es="Características" data-en="Features">Características</a>
+                        <a href="#download" class="nav-link" data-es="Descargar" data-en="Download">Descargar</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4 data-es="Soporte" data-en="Support">Soporte</h4>
+                        <a href="#" data-es="Comunidad" data-en="Community">Comunidad</a>
+                        <a href="#" data-es="Contacto" data-en="Contact">Contacto</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p data-es="&copy; 2024 HolySpace. Hecho con ❤️ para la comunidad cristiana." data-en="&copy; 2024 HolySpace. Made with ❤️ for the Christian community.">&copy; 2024 HolySpace. Hecho con ❤️ para la comunidad cristiana.</p>
+                <p class="developer-info" data-es="Desarrollado por Pablo Marchán" data-en="Developed by Pablo Marchán">Desarrollado por Pablo Marchán</p>
+                <p class="contact-info">
+                    <a href="mailto:mppablomp@hotmail.com" class="email-link">mppablomp@hotmail.com</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
