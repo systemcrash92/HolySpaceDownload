@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://holyspace-60ec1.firebaseapp.com/sitemap.xml
+Sitemap: https://holyspace.app/sitemap.xml
 
 # Crawl-delay for respectful crawling
 Crawl-delay: 1

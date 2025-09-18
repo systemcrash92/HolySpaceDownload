@@ -6,7 +6,7 @@
 
     <!-- Página principal -->
     <url>
-        <loc>https://holyspace-60ec1.firebaseapp.com/</loc>
+        <loc>https://holyspace.app/</loc>
         <lastmod>2024-12-19</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
@@ -14,7 +14,7 @@
 
     <!-- Sección de características -->
     <url>
-        <loc>https://holyspace-60ec1.firebaseapp.com/#features</loc>
+        <loc>https://holyspace.app/#features</loc>
         <lastmod>2024-12-19</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
@@ -22,7 +22,7 @@
 
     <!-- Sección de descarga -->
     <url>
-        <loc>https://holyspace-60ec1.firebaseapp.com/#download</loc>
+        <loc>https://holyspace.app/#download</loc>
         <lastmod>2024-12-19</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
@@ -30,7 +30,7 @@
 
     <!-- Sección de screenshots -->
     <url>
-        <loc>https://holyspace-60ec1.firebaseapp.com/#screenshots</loc>
+        <loc>https://holyspace.app/#screenshots</loc>
         <lastmod>2024-12-19</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
@@ -38,7 +38,7 @@
 
     <!-- Sección demo -->
     <url>
-        <loc>https://holyspace-60ec1.firebaseapp.com/#demo</loc>
+        <loc>https://holyspace.app/#demo</loc>
         <lastmod>2024-12-19</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
