@@ -1,0 +1,54 @@
+{
+  "name": "HolySpace - Biblia Digital con Pomodoros",
+  "short_name": "HolySpace",
+  "description": "La mejor app de biblia digital con temporizador Pomodoro para estudio bíblico estructurado. Lectura sin distracciones, subrayado inteligente y notas personales.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f0f23",
+  "theme_color": "#3b82f6",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "es",
+  "categories": ["education", "productivity", "lifestyle"],
+  "icons": [
+    {
+      "src": "logo/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "logo/app-icon-256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "logo/logo-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "images/01.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Interfaz principal de HolySpace"
+    },
+    {
+      "src": "images/02.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Funcionalidades avanzadas de HolySpace"
+    }
+  ],
+  "related_applications": [
+    {
+      "platform": "web",
+      "url": "https://holyspace-60ec1.firebaseapp.com/"
+    }
+  ],
+  "prefer_related_applications": false
+}

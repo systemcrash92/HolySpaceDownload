@@ -69,3 +69,13 @@ out/
 # Temporary folders
 tmp/
 temp/
+
+# Large installer files (use GitHub releases instead)
+*.exe
+*.dmg
+*.msi
+*.pkg
+HolySpace-Setup-*.exe
+HolySpace-*-mac.dmg
+downloads/
+link/
