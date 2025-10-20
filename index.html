@@ -1,262 +1,458 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" id="html-lang">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HolySpace - Biblia de Escritorio con Pomodoros</title>
-    <meta name="description" content="HolySpace: Una biblia de escritorio minimalista, rápida y cómoda con sistema de pomodoros y subrayado. La experiencia perfecta para el estudio bíblico.">
-    <link rel="icon" type="image/png" sizes="256x256" href="logo/app-icon-256.png">
-    <link rel="apple-touch-icon" sizes="256x256" href="logo/app-icon-256.png">
+    <title>HolySpace - Bible Web App</title>
+    <meta name="description" content="Bible Web App with cloud sync, highlighting, notes and diagrams. Free desktop version also available.">
+    <link rel="icon" href="logo/favicon.ico">
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RS2B3W4587"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-RS2B3W4587');
-    </script>
-    
-    <!-- Firebase SDK -->
-    <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-        import { getAnalytics } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js';
-        
-        const firebaseConfig = {
-            apiKey: "AIzaSyDSMgdvfOX6NwueluGkOx06R9jS1BwN4yU",
-            authDomain: "holyspace-60ec1.firebaseapp.com",
-            projectId: "holyspace-60ec1",
-            storageBucket: "holyspace-60ec1.firebasestorage.app",
-            messagingSenderId: "1095731378645",
-            appId: "1:1095731378645:web:c43f64b944a9aecf02a55c",
-            measurementId: "G-RS2B3W4587"
-        };
-        
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-        
-        window.firebaseAnalytics = analytics;
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body>
-    <!-- Animación de fondo -->
-    <div class="background-animation">
-        <div class="floating-shapes">
-            <div class="shape shape-1"></div>
-            <div class="shape shape-2"></div>
-            <div class="shape shape-3"></div>
-            <div class="shape shape-4"></div>
-            <div class="shape shape-5"></div>
-            <div class="shape shape-6"></div>
-        </div>
-    </div>
-
-    <!-- Navegación -->
+    <!-- Navigation -->
     <nav class="navbar">
+        <div class="nav-overlay" id="navOverlay"></div>
         <div class="nav-container">
             <div class="nav-logo">
-                <img src="logo/app-icon-256.png" alt="HolySpace Logo" class="logo-img">
+                <img src="logo/logo-512.png" alt="HolySpace" class="logo-img">
+                <span class="logo-text">HolySpace</span>
             </div>
-            <div class="nav-links">
-                <a href="#features" class="nav-link" data-es="Características" data-en="Features">Características</a>
-                <a href="#download" class="nav-link download-btn" data-es="Descargar" data-en="Download">Descargar</a>
+            <div class="nav-menu">
+                <a href="#features" class="nav-link" data-es="Características" data-en="Features">Features</a>
+                <a href="#pricing" class="nav-link" data-es="Precios" data-en="Pricing">Pricing</a>
+                <a href="#desktop" class="nav-link" data-es="Desktop" data-en="Desktop">Desktop</a>
+                <button class="language-toggle" onclick="toggleLanguage()">
+                    <span class="lang-flag">🇪🇸</span>
+                    <span class="lang-text">ES</span>
+                </button>
+                <a href="https://bible.holyspace.app/login" target="_blank" class="nav-cta" data-es="Comenzar Ahora" data-en="Get Started">Get Started</a>
+            </div>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </div>
     </nav>
 
-    <!-- Sección Hero -->
+    <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-container">
+        <div class="hero-background">
+            <video class="hero-video" autoplay muted loop playsinline>
+                <source src="images/NotasYhiglights.mp4" type="video/mp4">
+            </video>
+            <video class="hero-video" autoplay muted loop playsinline style="display: none;">
+                <source src="images/Diagramas.mp4" type="video/mp4">
+            </video>
+            <video class="hero-video" autoplay muted loop playsinline style="display: none;">
+                <source src="images/darkmodeLightMode.mp4" type="video/mp4">
+            </video>
+            <video class="hero-video" autoplay muted loop playsinline style="display: none;">
+                <source src="images/recomendacionesiainteligent.png" type="image/png">
+            </video>
+            <div class="hero-overlay"></div>
+        </div>
             <div class="hero-content">
-                <div class="app-brand">
-                    <h1 class="app-name">HolySpace</h1>
-                    <p class="app-subtitle" data-es="App de Escritorio" data-en="Desktop App">App de Escritorio</p>
-                </div>
-                <h2 class="hero-title">
-                    <span class="title-line" data-es="Tu Biblia de Escritorio" data-en="Your Desktop Bible">Tu Biblia de Escritorio</span>
-                    <span class="title-line highlight" data-es="Minimalista y Rápida" data-en="Minimalist and Fast">Minimalista y Rápida</span>
-                </h2>
-                <p class="hero-description" data-es="HolySpace combina la lectura bíblica con la técnica Pomodoro para una experiencia de estudio enfocada y productiva. Subraya, organiza y profundiza en la Palabra como nunca antes." data-en="HolySpace combines biblical reading with the Pomodoro technique for a focused and productive study experience. Highlight, organize and deepen in the Word like never before.">
-                    HolySpace combina la lectura bíblica con la técnica Pomodoro para una experiencia de estudio 
-                    enfocada y productiva. Subraya, organiza y profundiza en la Palabra como nunca antes.
-                </p>
+            <div class="container">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        <span class="title-main">HolySpace</span>
+                        <span class="title-sub" data-es="Biblia Web App" data-en="Bible Web App">Bible Web App</span>
+                    </h1>
+                    <p class="hero-description" data-es="Estudia con propósito. Crece en la verdad. Accede a la Biblia con sincronización en la nube, subraya versículos, crea notas y diagramas interactivos." data-en="Study with purpose. Grow in truth. Access the Bible with cloud sync, highlight verses, create notes and interactive diagrams.">
+                        Study with purpose. Grow in truth. Access the Bible with cloud sync, highlight verses, 
+                        create notes and interactive diagrams.
+                    </p>
                 <div class="hero-buttons">
-                    <button class="btn-primary">
-                        <span data-es="Descargar Ahora" data-en="Download Now">Descargar Ahora</span>
-                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                            <polyline points="7,10 12,15 17,10"></polyline>
-                            <line x1="12" y1="15" x2="12" y2="3"></line>
-                        </svg>
+                        <a href="https://bible.holyspace.app/login" target="_blank" class="btn-primary" data-es="Comenzar Ahora - $4.99/mes" data-en="Get Started - $4.99/month">
+                            <i class="fas fa-rocket"></i>
+                            Get Started - $4.99/month
+                        </a>
+                        <button class="btn-secondary" onclick="scrollToSection('features')" data-es="Ver Características" data-en="View Features">
+                            <i class="fas fa-play"></i>
+                            View Features
                     </button>
-                    <a href="https://www.paypal.com/donate/?hosted_button_id=T3B45ZMTT9D34" target="_blank" class="btn-donate">
-                        <span data-es="💝 Apoya el Proyecto" data-en="💝 Support the Project">💝 Apoya el Proyecto</span>
-                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                        </svg>
-                    </a>
                 </div>
-                <div class="hero-video">
-                    <video class="demo-video" autoplay muted loop playsinline>
-                        <source src="Video/muestreo.mp4" type="video/mp4">
-                        <p data-es="Tu navegador no soporta videos HTML5" data-en="Your browser does not support HTML5 video">Tu navegador no soporta videos HTML5</p>
-                    </video>
-                </div>
-            </div>
-            <div class="hero-visual">
-                <div class="app-preview">
-                    <div class="app-window">
-                        <div class="window-header">
-                            <div class="window-controls">
-                                <span class="control close"></span>
-                                <span class="control minimize"></span>
-                                <span class="control maximize"></span>
-                            </div>
-                            <span class="window-title">HolySpace</span>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="stat-number">Reina Valera</span>
+                            <span class="stat-label" data-es="Versión en Español" data-en="Spanish Version">Spanish Version</span>
                         </div>
-                        <div class="app-content">
-                            <div class="bible-text">
-                                <h3>Juan 3:16</h3>
-                                <p data-es="Porque de tal manera amó Dios al mundo, que ha dado a su Hijo unigénito, para que todo aquel que en él cree, no se pierda, mas tenga vida eterna." data-en="For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.">Porque de tal manera amó Dios al mundo, que ha dado a su Hijo unigénito, para que todo aquel que en él cree, no se pierda, mas tenga vida eterna.</p>
-                            </div>
-                            <div class="pomodoro-timer">
-                                <div class="timer-circle">
-                                    <span class="timer-text">25:00</span>
-                                </div>
-                                <div class="timer-controls">
-                                    <button class="timer-btn">▶</button>
-                                    <button class="timer-btn">⏸</button>
-                                </div>
-                            </div>
+                        <div class="stat">
+                            <span class="stat-number">King James</span>
+                            <span class="stat-label" data-es="Versión en Inglés" data-en="English Version">English Version</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" data-es="Gratis" data-en="Free">Free</span>
+                            <span class="stat-label" data-es="Descarga Desktop" data-en="Desktop Download">Desktop Download</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="hero-scroll">
+                        <div class="scroll-indicator">
+                <span data-es="Desliza para explorar" data-en="Scroll to explore">Scroll to explore</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
     </section>
 
-    <!-- Sección de Características -->
+    <!-- Features Section -->
     <section id="features" class="features">
         <div class="container">
-            <h2 class="section-title" data-es="Características Principales" data-en="Main Features">Características Principales</h2>
+            <div class="section-header">
+                <h2 class="section-title" data-es="🚀 Biblia Web App" data-en="🚀 Bible Web App">🚀 Bible Web App</h2>
+                <p class="section-subtitle" data-es="Herramientas avanzadas para tu estudio bíblico" data-en="Advanced tools for your biblical study">Advanced tools for your biblical study</p>
+            </div>
+
+            <!-- Feature Grid -->
             <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-                        </svg>
+                <!-- Notas Personales -->
+                <div class="feature-card" data-feature="notas" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-media">
+                        <video class="feature-video" autoplay muted loop playsinline>
+                            <source src="images/NotasPersonales.mp4" type="video/mp4">
+                        </video>
+                        <div class="feature-overlay">
+                            <i class="fas fa-sticky-note"></i>
+                        </div>
                     </div>
-                    <h3 data-es="Lectura Minimalista" data-en="Minimalist Reading">Lectura Minimalista</h3>
-                    <p data-es="Interfaz limpia y enfocada que elimina distracciones para una experiencia de lectura pura y contemplativa." data-en="Clean and focused interface that eliminates distractions for a pure and contemplative reading experience.">Interfaz limpia y enfocada que elimina distracciones para una experiencia de lectura pura y contemplativa.</p>
+                    <div class="feature-content">
+                        <h3 data-es="🗒️ Notas Personales" data-en="🗒️ Personal Notes">🗒️ Personal Notes</h3>
+                        <p data-es="Guarda lo que el Espíritu Santo te revela mientras lees la Biblia. Puedes escribir notas en versículos específicos o crear notas personales independientes." data-en="Save what the Holy Spirit reveals to you while reading the Bible. You can write notes on specific verses or create independent personal notes.">Save what the Holy Spirit reveals to you while reading the Bible. You can write notes on specific verses or create independent personal notes.</p>
+                        <ul class="feature-benefits">
+                            <li data-es="Sincronización automática en tu cuenta" data-en="Automatic sync to your account">Automatic sync to your account</li>
+                            <li data-es="Guarda tus ideas y oraciones" data-en="Save your ideas and prayers">Save your ideas and prayers</li>
+                            <li data-es="Vincula notas a versículos" data-en="Link notes to verses">Link notes to verses</li>
+                            <li data-es="Consulta todas tus notas en un solo lugar" data-en="Access all your notes in one place">Access all your notes in one place</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <polyline points="12,6 12,12 16,14"></polyline>
-                        </svg>
+
+                <!-- Sistema de Resaltado -->
+                <div class="feature-card" data-feature="resaltado" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-media">
+                        <video class="feature-video" autoplay muted loop playsinline>
+                            <source src="images/NotasYhiglights.mp4" type="video/mp4">
+                        </video>
+                        <div class="feature-overlay">
+                            <i class="fas fa-highlighter"></i>
+                        </div>
                     </div>
-                    <h3 data-es="Pomodoros Integrados" data-en="Integrated Pomodoros">Pomodoros Integrados</h3>
-                    <p data-es="Sistema de temporizador Pomodoro integrado para sesiones de estudio estructuradas y productivas." data-en="Integrated Pomodoro timer system for structured and productive study sessions.">Sistema de temporizador Pomodoro integrado para sesiones de estudio estructuradas y productivas.</p>
+                    <div class="feature-content">
+                        <h3 data-es="✏️ Sistema de Resaltado" data-en="✏️ Highlighting System">✏️ Highlighting System</h3>
+                        <p data-es="Resalta los versículos que más te inspiran con colores predefinidos. Ideal para marcar pasajes importantes o seguir tus temas de estudio." data-en="Highlight the verses that inspire you most with predefined colors. Ideal for marking important passages or following your study topics.">Highlight the verses that inspire you most with predefined colors. Ideal for marking important passages or following your study topics.</p>
+                        <ul class="feature-benefits">
+                            <li data-es="Colores preestablecidos" data-en="Predefined colors">Predefined colors</li>
+                            <li data-es="Resaltado directo sobre el texto bíblico" data-en="Direct highlighting on biblical text">Direct highlighting on biblical text</li>
+                            <li data-es="Guarda tus versículos destacados" data-en="Save your highlighted verses">Save your highlighted verses</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                        </svg>
+
+                <!-- Diagramas Interactivos -->
+                <div class="feature-card" data-feature="diagramas" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-media">
+                        <video class="feature-video" autoplay muted loop playsinline>
+                            <source src="images/Diagramas.mp4" type="video/mp4">
+                        </video>
+                        <div class="feature-overlay">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
                     </div>
-                    <h3 data-es="Subrayado Inteligente" data-en="Smart Highlighting">Subrayado Inteligente</h3>
-                    <p data-es="Resalta versículos importantes con colores personalizables y organiza tus notas de manera intuitiva." data-en="Highlight important verses with customizable colors and organize your notes intuitively.">Resalta versículos importantes con colores personalizables y organiza tus notas de manera intuitiva.</p>
+                    <div class="feature-content">
+                        <h3 data-es="📊 Diagramas Interactivos" data-en="📊 Interactive Diagrams">📊 Interactive Diagrams</h3>
+                        <p data-es="Visualiza conexiones bíblicas, genealogías y conceptos teológicos con diagramas interactivos." data-en="Visualize biblical connections, genealogies and theological concepts with interactive diagrams.">Visualize biblical connections, genealogies and theological concepts with interactive diagrams.</p>
+                        <ul class="feature-benefits">
+                            <li data-es="Genealogías bíblicas" data-en="Biblical genealogies">Biblical genealogies</li>
+                            <li data-es="Mapas conceptuales" data-en="Concept maps">Concept maps</li>
+                            <li data-es="Conexiones de versículos" data-en="Verse connections">Verse connections</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
-                        </svg>
+
+                <!-- Modo Oscuro/Claro -->
+                <div class="feature-card" data-feature="modo" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feature-media">
+                        <video class="feature-video" autoplay muted loop playsinline>
+                            <source src="images/darkmodeLightMode.mp4" type="video/mp4">
+                        </video>
+                        <div class="feature-overlay">
+                            <i class="fas fa-adjust"></i>
+                        </div>
                     </div>
-                    <h3 data-es="Ultra Rápida" data-en="Ultra Fast">Ultra Rápida</h3>
-                    <p data-es="Optimizada para velocidad máxima. Navega entre libros, capítulos y versículos instantáneamente." data-en="Optimized for maximum speed. Navigate between books, chapters and verses instantly.">Optimizada para velocidad máxima. Navega entre libros, capítulos y versículos instantáneamente.</p>
+                    <div class="feature-content">
+                        <h3 data-es="🌗 Modo Oscuro y Claro" data-en="🌗 Dark and Light Mode">🌗 Dark and Light Mode</h3>
+                        <p data-es="Adapta la lectura de la Biblia según el momento del día. Elige entre modo claro u oscuro para leer cómodamente." data-en="Adapt your Bible reading according to the time of day. Choose between light or dark mode to read comfortably.">Adapt your Bible reading according to the time of day. Choose between light or dark mode to read comfortably.</p>
+                        <ul class="feature-benefits">
+                            <li data-es="Cambio manual o automático" data-en="Manual or automatic switching">Manual or automatic switching</li>
+                            <li data-es="Reduce la fatiga visual" data-en="Reduces eye strain">Reduces eye strain</li>
+                            <li data-es="Interfaz limpia y adaptable" data-en="Clean and adaptable interface">Clean and adaptable interface</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Asistente IA -->
+
+                <!-- Estadísticas -->
+                <div class="feature-card" data-feature="estadisticas" data-aos="fade-up" data-aos-delay="600">
+                    <div class="feature-media">
+                        <img src="images/estadisticas1.png" alt="Estadísticas de Lectura" class="feature-image">
+                        <div class="feature-overlay">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                    </div>
+                    <div class="feature-content">
+                        <h3 data-es="📈 Estadísticas de Lectura" data-en="📈 Reading Statistics">📈 Reading Statistics</h3>
+                        <p data-es="Monitorea tu progreso de lectura y visualiza tu crecimiento espiritual con gráficos detallados." data-en="Monitor your reading progress and visualize your spiritual growth with detailed charts.">Monitor your reading progress and visualize your spiritual growth with detailed charts.</p>
+                        <ul class="feature-benefits">
+                            <li data-es="Progreso detallado" data-en="Detailed progress">Detailed progress</li>
+                            <li data-es="Gráficos interactivos" data-en="Interactive charts">Interactive charts</li>
+                            <li data-es="Metas personalizadas" data-en="Custom goals">Custom goals</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Pomodoro -->
+                <div class="feature-card" data-feature="pomodoro" data-aos="fade-up" data-aos-delay="700">
+                    <div class="feature-media">
+                        <img src="images/pomodoro.png" alt="Temporizador Pomodoro" class="feature-image">
+                        <div class="feature-overlay">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                    </div>
+                    <div class="feature-content">
+                        <h3 data-es="⏰ Temporizador Pomodoro" data-en="⏰ Pomodoro Timer">⏰ Pomodoro Timer</h3>
+                        <p data-es="Sistema de temporizador integrado para sesiones de estudio estructuradas y productivas." data-en="Integrated timer system for structured and productive study sessions.">Integrated timer system for structured and productive study sessions.</p>
+                        <ul class="feature-benefits">
+                            <li data-es="Sesiones estructuradas" data-en="Structured sessions">Structured sessions</li>
+                            <li data-es="Descansos automáticos" data-en="Automatic breaks">Automatic breaks</li>
+                            <li data-es="Estadísticas de productividad" data-en="Productivity statistics">Productivity statistics</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Sistema de Gamificación -->
+                <div class="feature-card" data-feature="gamificacion" data-aos="fade-up" data-aos-delay="800">
+                    <div class="feature-media">
+                        <img src="images/guiderank.png" alt="Sistema de Gamificación" class="feature-image">
+                        <div class="feature-overlay">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                    </div>
+                    <div class="feature-content">
+                        <h3 data-es="🏆 Sistema de Ranking de Estudiantes" data-en="🏆 Student Ranking System">🏆 Student Ranking System</h3>
+                        <p data-es="Progresa de Estudiante Principiante a Sabio Eterno. Desbloquea nuevos rangos completando metas de estudio, notas y tiempo de lectura." data-en="Progress from Beginner Student to Eternal Sage. Unlock new ranks by completing study goals, notes and reading time.">Progress from Beginner Student to Eternal Sage. Unlock new ranks by completing study goals, notes and reading time.</p>
+                        <ul class="feature-benefits">
+                            <li data-es="7 rangos disponibles" data-en="7 ranks available">7 ranks available</li>
+                            <li data-es="Metas de resaltado y notas" data-en="Highlight and note goals">Highlight and note goals</li>
+                            <li data-es="Racha de días consecutivos" data-en="Consecutive day streak">Consecutive day streak</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Desktop Section -->
+    <section id="desktop" class="desktop-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-es="🖥️ Versión Desktop Gratuita" data-en="🖥️ Free Desktop Version">🖥️ Free Desktop Version</h2>
+                <p class="section-subtitle" data-es="También tenemos una versión desktop gratuita" data-en="We also have a free desktop version">We also have a free desktop version</p>
+            </div>
+
+            <!-- Video Principal -->
+            <div class="desktop-video-container">
+                <div class="video-wrapper">
+                    <video class="desktop-video" autoplay muted loop playsinline>
+                        <source src="images/muestreo.mp4" type="video/mp4">
+                    </video>
+                    <div class="video-overlay">
+                        <div class="video-info">
+                            <h3 data-es="HolySpace Desktop" data-en="HolySpace Desktop">HolySpace Desktop</h3>
+                            <p data-es="Versión gratuita para Windows y Mac" data-en="Free version for Windows and Mac">Free version for Windows and Mac</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Características Desktop -->
+            <div class="desktop-features">
+                <p class="desktop-description" data-es="Incluye: Notas personales, resaltados, temporizador Pomodoro y lectura básica de la Biblia." data-en="Includes: Personal notes, highlights, Pomodoro timer and basic Bible reading.">
+                    Includes: Personal notes, highlights, Pomodoro timer and basic Bible reading.
+                </p>
+            </div>
+
+            <!-- Botones de Descarga -->
+            <div class="download-section">
+                <div class="download-cards">
+                    <div class="download-card windows-card">
+                        <div class="card-icon">
+                            <i class="fab fa-windows"></i>
+                        </div>
+                        <h3 data-es="Windows" data-en="Windows">Windows</h3>
+                        <p data-es="Compatible con Windows 10/11" data-en="Compatible with Windows 10/11">Compatible with Windows 10/11</p>
+                        <a href="downloads/HolySpace-Setup-1.0.0.exe" class="download-btn">
+                            <i class="fas fa-download"></i>
+                            <span data-es="Descargar para Windows" data-en="Download for Windows">Download for Windows</span>
+                        </a>
+                    </div>
+                    
+                    <div class="download-card mac-card">
+                        <div class="card-icon">
+                            <i class="fab fa-apple"></i>
+                        </div>
+                        <h3 data-es="macOS" data-en="macOS">macOS</h3>
+                        <p data-es="Compatible con macOS 10.15+" data-en="Compatible with macOS 10.15+">Compatible with macOS 10.15+</p>
+                        <a href="downloads/HolySpace-1.0.0-mac.dmg" class="download-btn">
+                            <i class="fas fa-download"></i>
+                            <span data-es="Descargar para Mac" data-en="Download for Mac">Download for Mac</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="upgrade-section">
+                    <div class="upgrade-card">
+                        <div class="upgrade-header">
+                            <h3 data-es="¿Te gustaría tener más herramientas?" data-en="Would you like to have more tools?">Would you like to have more tools?</h3>
+                            <p data-es="Actualiza a la versión web con todas las características" data-en="Upgrade to the web version with all features">Upgrade to the web version with all features</p>
+                        </div>
+                        <div class="upgrade-features">
+                            <span data-es="☁️ Sincronización en la nube" data-en="☁️ Cloud synchronization">☁️ Cloud synchronization</span>
+                            <span data-es="🤖 Recomendaciones inteligentes" data-en="🤖 Smart recommendations">🤖 Smart recommendations</span>
+                            <span data-es="📊 Estadísticas avanzadas" data-en="📊 Advanced statistics">📊 Advanced statistics</span>
+                            <span data-es="🏆 Sistema de gamificación" data-en="🏆 Gamification system">🏆 Gamification system</span>
+                            <span data-es="📊 Diagramas interactivos" data-en="📊 Interactive diagrams">📊 Interactive diagrams</span>
+                        </div>
+                        <a href="https://bible.holyspace.app/login" target="_blank" class="upgrade-btn">
+                            <i class="fas fa-rocket"></i>
+                            <span data-es="Actualizar a Web App - $4.99/mes" data-en="Upgrade to Web App - $4.99/month">Upgrade to Web App - $4.99/month</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Sección Demo -->
-    <section id="demo" class="demo">
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
         <div class="container">
-            <h2 class="section-title" data-es="Experiencia HolySpace" data-en="HolySpace Experience">Experiencia HolySpace</h2>
-            <div class="demo-content">
-                <div class="demo-text">
-                    <h3 data-es="Adquiere sabiduría, adquiere inteligencia" data-en="Get wisdom, get understanding">Adquiere sabiduría, adquiere inteligencia</h3>
-                    <p class="verse-reference" data-es="Proverbios 4:5" data-en="Proverbs 4:5">Proverbios 4:5</p>
-                    <p data-es="Tenemos la Biblia sin publicidades ni distracciones. Cada sesión de estudio es una oportunidad para crecer en sabiduría y conocimiento del Señor." data-en="We have the Bible without ads or distractions. Each study session is an opportunity to grow in wisdom and knowledge of the Lord.">Tenemos la Biblia sin publicidades ni distracciones. Cada sesión de estudio es una oportunidad para crecer en sabiduría y conocimiento del Señor.</p>
-                    <ul class="demo-features">
-                        <li data-es="✓ Lectura sin distracciones" data-en="✓ Distraction-free reading">✓ Lectura sin distracciones</li>
-                        <li data-es="✓ Temporizador Pomodoro integrado" data-en="✓ Integrated Pomodoro timer">✓ Temporizador Pomodoro integrado</li>
-                        <li data-es="✓ Sistema de subrayado avanzado" data-en="✓ Advanced highlighting system">✓ Sistema de subrayado avanzado</li>
-                        <li data-es="✓ Navegación ultrarrápida" data-en="✓ Ultra-fast navigation">✓ Navegación ultrarrápida</li>
-                        <li data-es="✓ Interfaz minimalista y elegante" data-en="✓ Minimalist and elegant interface">✓ Interfaz minimalista y elegante</li>
-                        <li data-es="✓ 100% Offline - No requiere internet" data-en="✓ 100% Offline - No internet required">✓ 100% Offline - No requiere internet</li>
-                    </ul>
+            <div class="section-header">
+                <h2 class="section-title" data-es="💰 Plan Premium" data-en="💰 Premium Plan">💰 Premium Plan</h2>
+                <p class="section-subtitle" data-es="Todo lo que necesitas para transformar tu estudio bíblico" data-en="Everything you need to transform your biblical study">Everything you need to transform your biblical study</p>
+            </div>
+
+            <div class="pricing-card">
+                <div class="pricing-header">
+                    <div class="pricing-badge" data-es="Más Popular" data-en="Most Popular">Most Popular</div>
+                    <h3 data-es="HolySpace Premium" data-en="HolySpace Premium">HolySpace Premium</h3>
+                    <div class="pricing-price">
+                        <span class="price-amount">$4.99</span>
+                        <span class="price-period" data-es="/mes" data-en="/month">/month</span>
+                    </div>
+                    <p class="pricing-description" data-es="Acceso completo a todas las características premium" data-en="Complete access to all premium features">Complete access to all premium features</p>
                 </div>
-                <div class="demo-visual">
-                    <div class="demo-screenshots">
-                        <div class="screenshot screenshot-1">
-                            <div class="screenshot-content">
-                                <div class="bible-interface">
-                                    <div class="verse-highlight" data-es='"Porque de tal manera amó Dios al mundo..."' data-en='"For God so loved the world..."'>"Porque de tal manera amó Dios al mundo..."</div>
-                                    <div class="highlight-toolbar">
-                                        <button class="highlight-btn yellow"></button>
-                                        <button class="highlight-btn blue"></button>
-                                        <button class="highlight-btn green"></button>
-                                    </div>
-                                </div>
-                            </div>
+
+                <div class="pricing-features">
+                    <div class="feature-list">
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span data-es="Reina Valera y King James" data-en="Reina Valera y King James">Reina Valera y King James</span>
                         </div>
-                        <div class="screenshot screenshot-2">
-                            <div class="screenshot-content">
-                                <div class="pomodoro-interface">
-                                    <div class="pomodoro-display">25:00</div>
-                                    <div class="pomodoro-progress"></div>
-                                    <div class="pomodoro-status" data-es="Tiempo de Estudio" data-en="Study Time">Tiempo de Estudio</div>
-                                </div>
-                            </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span data-es="Idiomas: Español e Inglés" data-en="Languages: Spanish and English">Languages: Spanish and English</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span data-es="Recomendaciones basadas en patrones" data-en="Pattern-based recommendations">Pattern-based recommendations</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span data-es="Estadísticas de lectura y progreso" data-en="Reading statistics and progress">Reading statistics and progress</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span data-es="Sistema de gamificación" data-en="Gamification system">Gamification system</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span data-es="Sistema de resaltado y notas" data-en="Highlighting and notes system">Highlighting and notes system</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span data-es="Sincronización en la nube" data-en="Cloud synchronization">Cloud synchronization</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span data-es="Diagramas interactivos" data-en="Interactive diagrams">Interactive diagrams</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span data-es="Exportar a PDF" data-en="Export to PDF">Export to PDF</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span data-es="Tiempo real y Multi-plataforma" data-en="Real-time and Multi-platform">Real-time and Multi-platform</span>
                         </div>
                     </div>
+                </div>
+
+                <div class="pricing-cta">
+                    <a href="https://bible.holyspace.app/login" target="_blank" class="pricing-btn" data-es="Comenzar Ahora" data-en="Get Started">
+                        <i class="fas fa-rocket"></i>
+                        Get Started
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Sección de Descarga -->
-    <section id="download" class="download">
+    <!-- CTA Section -->
+    <section class="cta">
         <div class="container">
-            <div class="download-content">
-                <h2 data-es="Tu Palabra es lámpara a mis pies" data-en="Your Word is a lamp to my feet">Tu Palabra es lámpara a mis pies</h2>
-                <p data-es="Como dice el Salmo 119:105, la Palabra de Dios ilumina nuestro camino. Descarga HolySpace y permite que cada versículo transforme tu corazón y mente en cada sesión de estudio." data-en="As Psalm 119:105 says, God's Word illuminates our path. Download HolySpace and let each verse transform your heart and mind in every study session.">Como dice el Salmo 119:105, la Palabra de Dios ilumina nuestro camino. Descarga HolySpace y permite que cada versículo transforme tu corazón y mente en cada sesión de estudio.</p>
-                <div class="download-buttons">
-                    <button class="download-btn primary">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                            <polyline points="7,10 12,15 17,10"></polyline>
-                            <line x1="12" y1="15" x2="12" y2="3"></line>
-                        </svg>
-                        <span data-es="Descargar para Windows" data-en="Download for Windows">Descargar para Windows</span>
-                    </button>
-                    <button class="download-btn secondary">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                            <polyline points="7,10 12,15 17,10"></polyline>
-                            <line x1="12" y1="15" x2="12" y2="3"></line>
-                        </svg>
-                        <span data-es="Descargar para macOS" data-en="Download for macOS">Descargar para macOS</span>
-                    </button>
+            <div class="cta-content">
+                <h2 data-es="🌟 Biblia Web App" data-en="🌟 Bible Web App">🌟 Bible Web App</h2>
+                <p data-es="Estudia con propósito. Crece en la verdad. Accede a la Biblia con sincronización en la nube, subraya versículos, crea notas y diagramas interactivos" data-en="Study with purpose. Grow in truth. Access the Bible with cloud sync, highlight verses, create notes and interactive diagrams">Study with purpose. Grow in truth. Access the Bible with cloud sync, highlight verses, create notes and interactive diagrams</p>
+                <div class="cta-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">Reina Valera</span>
+                        <span class="stat-label" data-es="Versión en Español" data-en="Spanish Version">Spanish Version</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">King James</span>
+                        <span class="stat-label" data-es="Versión en Inglés" data-en="English Version">English Version</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" data-es="Gratis" data-en="Free">Free</span>
+                        <span class="stat-label" data-es="Descarga Desktop" data-en="Desktop Download">Desktop Download</span>
+                    </div>
                 </div>
-                <div class="download-info">
-                    <p data-es="Gratis • Sin anuncios • Diseñado con amor" data-en="Free • No ads • Designed with love">Gratis • Sin anuncios • Diseñado con amor</p>
+                <div class="cta-buttons">
+                    <a href="https://bible.holyspace.app/login" target="_blank" class="cta-btn" data-es="Comenzar Mi Suscripción Premium" data-en="Start My Premium Subscription">
+                        <i class="fas fa-rocket"></i>
+                        Start My Premium Subscription
+                    </a>
+                </div>
+                <div class="cta-features">
+                    <div class="feature-highlight">
+                        <i class="fas fa-book"></i>
+                        <span data-es="Reina Valera y King James" data-en="Reina Valera y King James">Reina Valera y King James</span>
+                    </div>
+                    <div class="feature-highlight">
+                        <i class="fas fa-sync"></i>
+                        <span data-es="Sincronización en la Nube" data-en="Cloud Synchronization">Cloud Synchronization</span>
+                    </div>
+                    <div class="feature-highlight">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span data-es="Multi-plataforma" data-en="Multi-platform">Multi-platform</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -266,33 +462,153 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
+                <div class="footer-section">
                 <div class="footer-logo">
-                    <img src="logo/app-icon-256.png" alt="HolySpace Logo" class="footer-logo-img">
-                    <p data-es="Tu compañero perfecto para el estudio bíblico" data-en="Your perfect companion for biblical study">Tu compañero perfecto para el estudio bíblico</p>
+                        <img src="logo/logo-512.png" alt="HolySpace" class="footer-logo-img">
+                        <span class="footer-logo-text">HolySpace</span>
+                    </div>
+                    <p class="footer-description" data-es="Biblia Web App con sincronización en la nube y herramientas avanzadas." data-en="Bible Web App with cloud synchronization and advanced tools.">
+                        Bible Web App with cloud synchronization and advanced tools.
+                    </p>
                 </div>
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4 data-es="Producto" data-en="Product">Producto</h4>
-                        <a href="#features" data-es="Características" data-en="Features">Características</a>
-                        <a href="#download" class="nav-link" data-es="Descargar" data-en="Download">Descargar</a>
+                <div class="footer-section">
+                    <h4 data-es="Producto" data-en="Product">Product</h4>
+                    <ul class="footer-links">
+                        <li><a href="#features" data-es="Características" data-en="Features">Features</a></li>
+                        <li><a href="#pricing" data-es="Precios" data-en="Pricing">Pricing</a></li>
+                    </ul>
                     </div>
-                    <div class="footer-column">
-                        <h4 data-es="Soporte" data-en="Support">Soporte</h4>
-                        <a href="#" data-es="Comunidad" data-en="Community">Comunidad</a>
-                        <a href="#" data-es="Contacto" data-en="Contact">Contacto</a>
+                <div class="footer-section">
+                    <h4 data-es="Soporte" data-en="Support">Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:mppablomp@hotmail.com" data-es="Soporte" data-en="Support">Support</a></li>
+                    </ul>
                     </div>
+                <div class="footer-section">
+                    <h4 data-es="Acceso" data-en="Access">Access</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://bible.holyspace.app/login" target="_blank" data-es="Acceder a la App" data-en="Access the App">Access the App</a></li>
+                    </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p data-es="&copy; 2024 HolySpace. Hecho con ❤️ para la comunidad cristiana." data-en="&copy; 2024 HolySpace. Made with ❤️ for the Christian community.">&copy; 2024 HolySpace. Hecho con ❤️ para la comunidad cristiana.</p>
-                <p class="developer-info" data-es="Desarrollado por Pablo Marchán" data-en="Developed by Pablo Marchán">Desarrollado por Pablo Marchán</p>
-                <p class="contact-info">
-                    <a href="mailto:mppablomp@hotmail.com" class="email-link">mppablomp@hotmail.com</a>
-                </p>
+                <p data-es="&copy; 2024 HolySpace. Todos los derechos reservados." data-en="&copy; 2024 HolySpace. All rights reserved.">&copy; 2024 HolySpace. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAnalytics } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyD8QZQZQZQZQZQZQZQZQZQZQZQZQZQZQZQ",
+            authDomain: "holyspace-app.firebaseapp.com",
+            projectId: "holyspace-app",
+            storageBucket: "holyspace-app.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "1:123456789:web:abcdefghijklmnop",
+            measurementId: "G-XXXXXXXXXX"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+    </script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="script.js"></script>
+    
+    <!-- Language Detection and Switching Script -->
+    <script>
+        // Detectar idioma del navegador
+        function detectLanguage() {
+            const browserLang = navigator.language || navigator.userLanguage;
+            const langCode = browserLang.split('-')[0];
+            
+            // Si es español, usar español, sino inglés
+            return langCode === 'es' ? 'es' : 'en';
+        }
+        
+        // Cambiar idioma de la página
+        function switchLanguage(lang) {
+            const elements = document.querySelectorAll('[data-es][data-en]');
+            
+            elements.forEach(element => {
+                const text = element.getAttribute(`data-${lang}`);
+                if (text) {
+                    element.textContent = text;
+                }
+            });
+            
+            // Cambiar idioma del HTML
+            document.getElementById('html-lang').lang = lang;
+            
+            // Actualizar título y meta description
+            updateMetaTags(lang);
+            
+            // Guardar preferencia
+            localStorage.setItem('preferred-language', lang);
+        }
+        
+        // Actualizar meta tags
+        function updateMetaTags(lang) {
+            const titles = {
+                es: 'HolySpace - Biblia Web App',
+                en: 'HolySpace - Bible Web App'
+            };
+            
+            const descriptions = {
+                es: 'Biblia Web App con sincronización en la nube, subrayado, notas y diagramas. También disponible versión desktop gratuita.',
+                en: 'Bible Web App with cloud sync, highlighting, notes and diagrams. Free desktop version also available.'
+            };
+            
+            document.title = titles[lang];
+            document.querySelector('meta[name="description"]').content = descriptions[lang];
+        }
+        
+        // Alternar idioma
+        function toggleLanguage() {
+            const currentLang = document.getElementById('html-lang').lang;
+            const newLang = currentLang === 'es' ? 'en' : 'es';
+            
+            switchLanguage(newLang);
+            updateLanguageToggle(newLang);
+        }
+        
+        // Actualizar botón de idioma
+        function updateLanguageToggle(lang) {
+            const flag = document.querySelector('.lang-flag');
+            const text = document.querySelector('.lang-text');
+            
+            if (lang === 'es') {
+                flag.textContent = '🇪🇸';
+                text.textContent = 'ES';
+            } else {
+                flag.textContent = '🇺🇸';
+                text.textContent = 'EN';
+            }
+        }
+        
+        // Inicializar idioma al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verificar si hay preferencia guardada
+            const savedLang = localStorage.getItem('preferred-language');
+            const initialLang = savedLang || detectLanguage();
+            
+            // Cambiar al idioma inicial
+            switchLanguage(initialLang);
+            updateLanguageToggle(initialLang);
+        });
+    </script>
 </body>
 </html>

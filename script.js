@@ -1,220 +1,413 @@
-// Configuración de animaciones y efectos interactivos
+// HolySpace Premium - JavaScript Moderno
 document.addEventListener('DOMContentLoaded', function() {
+    // Inicializar AOS
+    AOS.init({
+        duration: 1000,
+        easing: 'ease-in-out',
+        once: true,
+        offset: 100
+    });
     
-    // Simple tracking function
-    function trackDownload(platform) {
-        if (typeof gtag !== 'undefined') {
-            gtag('event', 'download', {
-                'platform': platform,
-                'app_name': 'HolySpace'
-            });
-        }
-        console.log(`Download tracked: ${platform}`);
-    }
+    // Inicialización de componentes
+    initializeNavigation();
+    initializeVideos();
+    initializeAnimations();
+    initializeScrollEffects();
+    initializeFeatureCards();
+    initializeDemoSection();
     
-    // Simple page view tracking
-    function trackPageView(pageName) {
-        if (typeof gtag !== 'undefined') {
-            gtag('config', 'G-RS2B3W4587', {
-                page_title: pageName,
-                page_location: window.location.href
-            });
-        }
-        console.log(`Page view tracked: ${pageName}`);
-    }
+    // Configuración de Google Analytics
+    setupAnalytics();
     
-    // Track initial page view
-    trackPageView('HolySpace Landing Page');
+    // Efectos de partículas (opcional)
+    createParticleEffect();
+});
+
+// Navegación
+function initializeNavigation() {
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    const navOverlay = document.querySelector('.nav-overlay');
     
-    // Sistema de idiomas automático
-    function detectLanguage() {
-        const userLanguage = navigator.language || navigator.userLanguage;
-        const languageCode = userLanguage.split('-')[0];
-        
-        // Detectar si es español o inglés
-        if (languageCode === 'es') {
-            return 'es';
-        } else {
-            return 'en';
-        }
-    }
-    
-    function setLanguage(lang) {
-        const elements = document.querySelectorAll('[data-es][data-en]');
-        elements.forEach(element => {
-            const text = element.getAttribute(`data-${lang}`);
-            if (text) {
-                element.textContent = text;
+    if (navToggle && navMenu) {
+        // Toggle del menú hamburguesa
+        navToggle.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+            navToggle.classList.toggle('active');
+            if (navOverlay) {
+                navOverlay.classList.toggle('active');
             }
-        });
-        
-        // También actualizar elementos que pueden tener HTML interno
-        const elementsWithHTML = document.querySelectorAll('[data-es-html][data-en-html]');
-        elementsWithHTML.forEach(element => {
-            const html = element.getAttribute(`data-${lang}-html`);
-            if (html) {
-                element.innerHTML = html;
-            }
-        });
-        
-        // Actualizar meta tags
-        if (lang === 'es') {
-            document.title = 'HolySpace - Biblia de Escritorio con Pomodoros';
-            document.querySelector('meta[name="description"]').setAttribute('content', 
-                'HolySpace: Una biblia de escritorio minimalista, rápida y cómoda con sistema de pomodoros y subrayado. La experiencia perfecta para el estudio bíblico.');
-        } else {
-            document.title = 'HolySpace - Desktop Bible with Pomodoros';
-            document.querySelector('meta[name="description"]').setAttribute('content', 
-                'HolySpace: A minimalist, fast and comfortable desktop bible with pomodoro system and highlighting. The perfect experience for biblical study.');
-        }
-        
-        // Guardar preferencia
-        localStorage.setItem('holySpace-language', lang);
-    }
-    
-    // Detectar idioma al cargar
-    const savedLanguage = localStorage.getItem('holySpace-language');
-    const detectedLanguage = savedLanguage || detectLanguage();
-    setLanguage(detectedLanguage);
-    
-    // Botón de cambio de idioma (opcional)
-    function createLanguageToggle() {
-        const toggle = document.createElement('button');
-        toggle.className = 'language-toggle';
-        toggle.innerHTML = '🌐';
-        toggle.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-            z-index: 1001;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        `;
-        
-        toggle.addEventListener('click', function() {
-            const currentLang = localStorage.getItem('holySpace-language') || detectLanguage();
-            const newLang = currentLang === 'es' ? 'en' : 'es';
-            setLanguage(newLang);
-        });
-        
-        toggle.addEventListener('mouseenter', function() {
-            this.style.transform = 'scale(1.1)';
-            this.style.background = 'rgba(59, 130, 246, 0.2)';
-        });
-        
-        toggle.addEventListener('mouseleave', function() {
-            this.style.transform = 'scale(1)';
-            this.style.background = 'rgba(255, 255, 255, 0.1)';
-        });
-        
-        document.body.appendChild(toggle);
-    }
-    
-    createLanguageToggle();
-    
-    // Animación de scroll suave para enlaces de navegación
-    const navLinks = document.querySelectorAll('a[href^="#"]');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
             
-            if (targetSection) {
-                targetSection.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+            // Prevenir scroll del body cuando el menú está abierto
+            if (navMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
             }
         });
-    });
-
-    // Efecto parallax para las formas flotantes
-    window.addEventListener('scroll', function() {
-        const scrolled = window.pageYOffset;
-        const shapes = document.querySelectorAll('.shape');
         
-        shapes.forEach((shape, index) => {
-            const speed = 0.5 + (index * 0.1);
-            const yPos = -(scrolled * speed);
-            shape.style.transform = `translateY(${yPos}px) rotate(${scrolled * 0.1}deg)`;
+        // Cerrar menú al hacer clic en el overlay
+        if (navOverlay) {
+            navOverlay.addEventListener('click', function() {
+                navMenu.classList.remove('active');
+                navToggle.classList.remove('active');
+                navOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        }
+    }
+    
+    // Cerrar menú al hacer clic en un enlace
+    const navLinks = document.querySelectorAll('.nav-link, .nav-cta');
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+            navToggle.classList.remove('active');
+            if (navOverlay) {
+                navOverlay.classList.remove('active');
+            }
+            document.body.style.overflow = '';
         });
     });
+    
+    // Cerrar menú al cambiar tamaño de ventana (si se vuelve desktop)
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) {
+            navMenu.classList.remove('active');
+            navToggle.classList.remove('active');
+            if (navOverlay) {
+                navOverlay.classList.remove('active');
+            }
+            document.body.style.overflow = '';
+        }
+    });
+    
+    // Efecto de scroll en la navbar
+    window.addEventListener('scroll', function() {
+        const navbar = document.querySelector('.navbar');
+        if (window.scrollY > 100) {
+            navbar.style.background = 'rgba(15, 15, 35, 0.98)';
+            navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.3)';
+        } else {
+            navbar.style.background = 'rgba(15, 15, 35, 0.95)';
+            navbar.style.boxShadow = 'none';
+        }
+    });
+}
 
-    // Animación de entrada para elementos cuando son visibles
+// Inicialización de videos
+function initializeVideos() {
+    const videos = document.querySelectorAll('video');
+    
+    videos.forEach(video => {
+        // Configuración básica
+        video.muted = true;
+        video.loop = true;
+        video.playsInline = true;
+        
+        // Intentar reproducir automáticamente
+        const playPromise = video.play();
+        
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
+                console.log('Video autoplay iniciado:', video.src);
+            }).catch(error => {
+                console.log('Autoplay falló:', error);
+                // Agregar botón de play si falla
+                addPlayButton(video);
+            });
+        }
+        
+        // Efectos de hover
+        video.addEventListener('mouseenter', function() {
+            this.style.transform = 'scale(1.02)';
+        });
+        
+        video.addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1)';
+        });
+        
+        // Manejo de errores
+        video.addEventListener('error', function() {
+            console.error('Error cargando video:', this.src);
+            this.style.display = 'none';
+        });
+    });
+    
+    // Inicializar rotación de videos en el hero
+    initializeHeroVideoRotation();
+}
+
+// Agregar botón de play si falla autoplay
+function addPlayButton(video) {
+    const playButton = document.createElement('button');
+    playButton.innerHTML = '<i class="fas fa-play"></i>';
+    playButton.className = 'video-play-button';
+    playButton.style.cssText = `
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(59, 130, 246, 0.9);
+        border: none;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+        z-index: 10;
+        transition: all 0.3s ease;
+    `;
+    
+    playButton.addEventListener('click', function() {
+        video.play();
+        this.style.display = 'none';
+    });
+    
+    video.parentElement.style.position = 'relative';
+    video.parentElement.appendChild(playButton);
+}
+
+// Rotación de videos en el hero
+function initializeHeroVideoRotation() {
+    const heroVideos = document.querySelectorAll('.hero-background .hero-video');
+    let currentVideoIndex = 0;
+    
+    if (heroVideos.length <= 1) return;
+    
+    // Ocultar todos los videos excepto el primero
+    heroVideos.forEach((video, index) => {
+        if (index > 0) {
+            video.style.display = 'none';
+        }
+    });
+    
+    // Función para cambiar al siguiente video
+    function nextVideo() {
+        // Ocultar video actual
+        heroVideos[currentVideoIndex].style.display = 'none';
+        
+        // Mostrar siguiente video
+        currentVideoIndex = (currentVideoIndex + 1) % heroVideos.length;
+        heroVideos[currentVideoIndex].style.display = 'block';
+        
+        // Reproducir el nuevo video
+        heroVideos[currentVideoIndex].play().catch(error => {
+            console.log('Error reproduciendo video:', error);
+        });
+    }
+    
+    // Cambiar video cada 8 segundos
+    setInterval(nextVideo, 8000);
+}
+
+// Animaciones
+function initializeAnimations() {
+    // Intersection Observer para animaciones
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     };
 
-    const observer = new IntersectionObserver(function(entries) {
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+                entry.target.classList.add('animate-in');
             }
         });
     }, observerOptions);
 
-    // Observar elementos para animaciones de entrada
-    const animatedElements = document.querySelectorAll('.feature-card, .screenshot, .demo-text');
-    animatedElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    // Observar elementos animables
+    const animateElements = document.querySelectorAll('.feature-card, .section-header, .pricing-card, .demo-content');
+    animateElements.forEach(el => {
         observer.observe(el);
     });
+}
 
-    // Efecto de hover mejorado para las tarjetas de características
+// Efectos de scroll
+function initializeScrollEffects() {
+    // Parallax effect para el hero
+    window.addEventListener('scroll', function() {
+        const scrolled = window.pageYOffset;
+        const heroVideo = document.querySelector('.hero-video');
+        
+        if (heroVideo) {
+            heroVideo.style.transform = `translateY(${scrolled * 0.5}px)`;
+        }
+        
+        // Efecto de fade en elementos
+        const elements = document.querySelectorAll('.feature-card');
+        elements.forEach((element, index) => {
+            const elementTop = element.getBoundingClientRect().top;
+            const elementVisible = 150;
+            
+            if (elementTop < window.innerHeight - elementVisible) {
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+            }
+        });
+    });
+}
+
+// Tarjetas de características
+function initializeFeatureCards() {
     const featureCards = document.querySelectorAll('.feature-card');
+    
     featureCards.forEach(card => {
+        // Efecto de hover mejorado
         card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-15px) scale(1.02)';
+            this.style.transform = 'translateY(-12px) scale(1.02)';
+            this.style.boxShadow = '0 25px 50px rgba(59, 130, 246, 0.3)';
+            
+            // Efecto de resplandor
+            const overlay = this.querySelector('.feature-overlay');
+            if (overlay) {
+                overlay.style.transform = 'scale(1.1)';
+                overlay.style.boxShadow = '0 0 20px rgba(59, 130, 246, 0.5)';
+            }
         });
         
         card.addEventListener('mouseleave', function() {
             this.style.transform = 'translateY(0) scale(1)';
+            this.style.boxShadow = '0 25px 50px rgba(0, 0, 0, 0.25)';
+            
+            const overlay = this.querySelector('.feature-overlay');
+            if (overlay) {
+                overlay.style.transform = 'scale(1)';
+                overlay.style.boxShadow = '0 10px 15px rgba(0, 0, 0, 0.1)';
+            }
+        });
+        
+        // Efecto de click
+        card.addEventListener('click', function() {
+            this.style.transform = 'scale(0.98)';
+            setTimeout(() => {
+                this.style.transform = 'translateY(-12px) scale(1.02)';
+            }, 150);
         });
     });
+}
 
-    // Animación del temporizador Pomodoro
-    function animatePomodoroTimer() {
-        const timerElements = document.querySelectorAll('.timer-text, .pomodoro-display');
-        timerElements.forEach(timer => {
-            let time = 25 * 60; // 25 minutos en segundos
-            
-            function updateTimer() {
-                const minutes = Math.floor(time / 60);
-                const seconds = time % 60;
-                const displayTime = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                timer.textContent = displayTime;
-                
-                if (time > 0) {
-                    time--;
-                    setTimeout(updateTimer, 1000);
-                } else {
-                    // Reiniciar el temporizador
-                    time = 25 * 60;
-                    setTimeout(updateTimer, 2000);
-                }
+// Sección de demo
+function initializeDemoSection() {
+    const demoVideo = document.querySelector('.main-demo-video');
+    const playButton = document.querySelector('.play-button');
+    
+    if (demoVideo && playButton) {
+        playButton.addEventListener('click', function() {
+            if (demoVideo.paused) {
+                demoVideo.play();
+                this.innerHTML = '<i class="fas fa-pause"></i>';
+            } else {
+                demoVideo.pause();
+                this.innerHTML = '<i class="fas fa-play"></i>';
             }
-            
-            updateTimer();
+        });
+        
+        // Cambiar icono según estado del video
+        demoVideo.addEventListener('play', function() {
+            playButton.innerHTML = '<i class="fas fa-pause"></i>';
+        });
+        
+        demoVideo.addEventListener('pause', function() {
+            playButton.innerHTML = '<i class="fas fa-play"></i>';
         });
     }
+}
 
-    // Iniciar animación del temporizador
-    animatePomodoroTimer();
+// Configuración de Google Analytics
+function setupAnalytics() {
+    // Función para manejar suscripciones
+    function handleSubscription() {
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'subscription_click', {
+                'event_category': 'engagement',
+                'event_label': 'premium_subscription'
+            });
+        }
+        console.log('Premium subscription started');
+    }
+    
+    // Agregar event listeners a botones de suscripción
+    const subscriptionButtons = document.querySelectorAll('.btn-primary, .pricing-btn, .cta-btn, .nav-cta');
+    subscriptionButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            // Efecto visual
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+            }, 150);
+            
+            // Analytics
+            handleSubscription();
+        });
+    });
+}
 
-    // Efecto de typing para el título principal
+// Efecto de partículas
+function createParticleEffect() {
+    const hero = document.querySelector('.hero');
+    if (!hero) return;
+    
+    // Crear contenedor de partículas
+    const particleContainer = document.createElement('div');
+    particleContainer.className = 'particle-container';
+    particleContainer.style.cssText = `
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+    `;
+    
+    hero.appendChild(particleContainer);
+    
+    // Crear partículas
+    for (let i = 0; i < 50; i++) {
+        createParticle(particleContainer);
+    }
+}
+
+function createParticle(container) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    
+    // Posición aleatoria
+    const x = Math.random() * 100;
+    const y = Math.random() * 100;
+    const size = Math.random() * 4 + 1;
+    const duration = Math.random() * 20 + 10;
+    const delay = Math.random() * 5;
+    
+    particle.style.cssText = `
+        position: absolute;
+        left: ${x}%;
+        top: ${y}%;
+        width: ${size}px;
+        height: ${size}px;
+        background: rgba(59, 130, 246, 0.3);
+        border-radius: 50%;
+        animation: float ${duration}s ${delay}s infinite linear;
+    `;
+    
+    container.appendChild(particle);
+}
+
+// Función para scroll suave
+function scrollToSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    if (section) {
+        section.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
+}
+
+// Efectos de typing para títulos
     function typeWriter(element, text, speed = 100) {
         let i = 0;
         element.innerHTML = '';
@@ -230,251 +423,169 @@ document.addEventListener('DOMContentLoaded', function() {
         type();
     }
 
-    // Aplicar efecto de typing al título principal
-    const heroTitle = document.querySelector('.hero-title');
+// Inicializar efectos de typing en el hero
+window.addEventListener('load', function() {
+    const heroTitle = document.querySelector('.title-main');
     if (heroTitle) {
         const originalText = heroTitle.textContent;
-        setTimeout(() => {
-            typeWriter(heroTitle, originalText, 50);
-        }, 1000);
+        typeWriter(heroTitle, originalText, 80);
     }
+});
 
-    // Animación de partículas en el fondo
-    function createParticles() {
-        const particleContainer = document.querySelector('.floating-shapes');
-        
-        for (let i = 0; i < 10; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.cssText = `
-                position: absolute;
-                width: 4px;
-                height: 4px;
-                background: linear-gradient(45deg, #3b82f6, #8b5cf6);
-                border-radius: 50%;
-                opacity: 0.6;
-                animation: particleFloat ${15 + Math.random() * 10}s infinite linear;
-                left: ${Math.random() * 100}%;
-                top: ${Math.random() * 100}%;
-                animation-delay: ${Math.random() * 5}s;
-            `;
-            particleContainer.appendChild(particle);
-        }
+// Efectos de cursor personalizado
+document.addEventListener('mousemove', function(e) {
+    const cursor = document.querySelector('.custom-cursor');
+    if (cursor) {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
     }
+});
 
-    // Agregar estilos CSS para las partículas
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes particleFloat {
-            0% {
-                transform: translateY(100vh) translateX(0) rotate(0deg);
-                opacity: 0;
+// Lazy loading para imágenes
+function initializeLazyLoading() {
+    const images = document.querySelectorAll('img[data-src]');
+    
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.classList.remove('lazy');
+                imageObserver.unobserve(img);
             }
-            10% {
-                opacity: 0.6;
-            }
-            90% {
-                opacity: 0.6;
-            }
-            100% {
-                transform: translateY(-100px) translateX(${Math.random() * 200 - 100}px) rotate(360deg);
-                opacity: 0;
-            }
-        }
+        });
+    });
+    
+    images.forEach(img => imageObserver.observe(img));
+}
+
+// Efectos de sonido (opcional)
+function addSoundEffects() {
+    const buttons = document.querySelectorAll('.btn-primary, .btn-secondary, .pricing-btn, .cta-btn');
+    
+    buttons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Crear efecto de sonido visual
+            createRippleEffect(this, event);
+        });
+    });
+}
+
+function createRippleEffect(element, event) {
+    const ripple = document.createElement('span');
+    const rect = element.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const x = event.clientX - rect.left - size / 2;
+    const y = event.clientY - rect.top - size / 2;
+    
+    ripple.style.cssText = `
+        position: absolute;
+        width: ${size}px;
+        height: ${size}px;
+        left: ${x}px;
+        top: ${y}px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        transform: scale(0);
+        animation: ripple 0.6s linear;
+        pointer-events: none;
     `;
-    document.head.appendChild(style);
+    
+    element.style.position = 'relative';
+    element.style.overflow = 'hidden';
+    element.appendChild(ripple);
+    
+    setTimeout(() => {
+        ripple.remove();
+    }, 600);
+}
 
-    // Crear partículas
-    createParticles();
-
-    // Efecto de cursor personalizado
-    const cursor = document.createElement('div');
-    cursor.className = 'custom-cursor';
-    cursor.style.cssText = `
+// CSS para animaciones
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes float {
+        0% {
+            transform: translateY(100vh) rotate(0deg);
+            opacity: 0;
+        }
+        10% {
+            opacity: 1;
+        }
+        90% {
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(-100vh) rotate(360deg);
+            opacity: 0;
+        }
+    }
+    
+    @keyframes ripple {
+        to {
+            transform: scale(4);
+            opacity: 0;
+        }
+    }
+    
+    .animate-in {
+        animation: fadeInUp 0.6s ease forwards;
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .feature-card {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.6s ease;
+    }
+    
+    .feature-card.animate-in {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    .custom-cursor {
         position: fixed;
         width: 20px;
         height: 20px;
-        background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+        background: rgba(59, 130, 246, 0.5);
         border-radius: 50%;
         pointer-events: none;
         z-index: 9999;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        mix-blend-mode: difference;
-    `;
-    document.body.appendChild(cursor);
+        transition: transform 0.1s ease;
+    }
+`;
+document.head.appendChild(style);
 
-    document.addEventListener('mousemove', function(e) {
-        cursor.style.left = e.clientX - 10 + 'px';
-        cursor.style.top = e.clientY - 10 + 'px';
-        cursor.style.opacity = '1';
-    });
+// Inicializar efectos adicionales
+document.addEventListener('DOMContentLoaded', function() {
+    initializeLazyLoading();
+    addSoundEffects();
+});
 
-    document.addEventListener('mouseenter', function() {
-        cursor.style.opacity = '1';
-    });
+// Manejo de errores global
+window.addEventListener('error', function(e) {
+    console.error('Error en la aplicación:', e.error);
+});
 
-    document.addEventListener('mouseleave', function() {
-        cursor.style.opacity = '0';
-    });
-
-    // Efecto de hover en botones
-    const buttons = document.querySelectorAll('.btn-primary, .btn-secondary, .download-btn');
-    buttons.forEach(button => {
-        button.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-3px) scale(1.05)';
-        });
-        
-        button.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
-        });
-    });
-
-    // Animación de carga inicial
-    window.addEventListener('load', function() {
-        document.body.style.opacity = '0';
-        document.body.style.transition = 'opacity 0.5s ease';
-        
-        setTimeout(() => {
-            document.body.style.opacity = '1';
-        }, 100);
-    });
-
-    // Efecto de scroll en la navbar
-    let lastScrollTop = 0;
-    const navbar = document.querySelector('.navbar');
+// Performance monitoring
+window.addEventListener('load', function() {
+    const loadTime = performance.now();
+    console.log(`Página cargada en ${loadTime.toFixed(2)}ms`);
     
-    window.addEventListener('scroll', function() {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
-        if (scrollTop > lastScrollTop && scrollTop > 100) {
-            // Scrolling down
-            navbar.style.transform = 'translateY(-100%)';
-        } else {
-            // Scrolling up
-            navbar.style.transform = 'translateY(0)';
-        }
-        
-        lastScrollTop = scrollTop;
-    });
-
-    // Animación de números (contador)
-    function animateCounter(element, target, duration = 2000) {
-        let start = 0;
-        const increment = target / (duration / 16);
-        
-        function updateCounter() {
-            start += increment;
-            if (start < target) {
-                element.textContent = Math.floor(start);
-                requestAnimationFrame(updateCounter);
-            } else {
-                element.textContent = target;
-            }
-        }
-        
-        updateCounter();
-    }
-
-    // Efecto de parallax para el hero
-    const hero = document.querySelector('.hero');
-    window.addEventListener('scroll', function() {
-        const scrolled = window.pageYOffset;
-        const rate = scrolled * -0.5;
-        
-        if (hero) {
-            hero.style.transform = `translateY(${rate}px)`;
-        }
-    });
-
-    // Función para detectar el sistema operativo
-    function detectOS() {
-        const userAgent = navigator.userAgent.toLowerCase();
-        const platform = navigator.platform.toLowerCase();
-        
-        if (userAgent.includes('mac') || platform.includes('mac')) {
-            return 'mac';
-        } else if (userAgent.includes('win') || platform.includes('win')) {
-            return 'windows';
-        } else if (userAgent.includes('linux') || platform.includes('linux')) {
-            return 'windows'; // Default to Windows for Linux users
-        } else {
-            return 'windows'; // Default fallback
-        }
-    }
-
-    // Función para manejar descargas
-    function handleDownload(platform) {
-        // Si no se especifica plataforma, detectar automáticamente
-        if (!platform || platform === 'auto') {
-            platform = detectOS();
-        }
-        
-        // Track the download
-        trackDownload(platform);
-        
-        // Get the appropriate download URL
-        let downloadUrl;
-        if (platform === 'windows') {
-            downloadUrl = 'https://github.com/systemcrash92/HolySpaceDownload/releases/download/v1.0.0/HolySpace-Setup-1.0.0.exe';
-        } else if (platform === 'mac') {
-            downloadUrl = 'https://github.com/systemcrash92/HolySpaceDownload/releases/download/v1.0.0/HolySpace-1.0.0-mac.dmg';
-        }
-        
-        // Open download URL directly
-        window.open(downloadUrl, '_blank');
-        
-        console.log(`${platform} download started:`, downloadUrl);
-    }
-
-    // Event listeners for download buttons
-    const downloadButtons = document.querySelectorAll('.download-btn, .btn-primary, .hero-buttons .btn-primary');
-    downloadButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Determine platform based on button text or class
-            let platform = 'auto'; // Use auto-detection by default
-            const buttonText = this.querySelector('span').textContent.toLowerCase();
-            
-            if (buttonText.includes('mac') || buttonText.includes('macos')) {
-                platform = 'mac';
-            } else if (buttonText.includes('windows') || buttonText.includes('pc')) {
-                platform = 'windows';
-            }
-            // If it's "Descargar Ahora" or similar, use auto-detection
-            
-            // Visual feedback
-            const originalText = this.querySelector('span').textContent;
-            this.querySelector('span').textContent = 'Descargando...';
-            this.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-            
-            // Use the handleDownload function with auto-detection
-            handleDownload(platform);
-            
-            setTimeout(() => {
-                this.querySelector('span').textContent = '¡Descargado!';
-                this.style.background = 'linear-gradient(135deg, #059669, #047857)';
-                
-                setTimeout(() => {
-                    this.querySelector('span').textContent = originalText;
-                    this.style.background = '';
-                }, 2000);
-            }, 1000);
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'page_load_time', {
+            'event_category': 'performance',
+            'value': Math.round(loadTime)
         });
-    });
-
-    // Efecto de resplandor en elementos interactivos
-    const interactiveElements = document.querySelectorAll('.feature-card, .screenshot, .app-window');
-    interactiveElements.forEach(element => {
-        element.addEventListener('mouseenter', function() {
-            this.style.boxShadow = '0 0 40px rgba(59, 130, 246, 0.4)';
-        });
-        
-        element.addEventListener('mouseleave', function() {
-            this.style.boxShadow = '';
-        });
-    });
-
-    console.log('🚀 HolySpace website loaded successfully!');
+    }
 });
