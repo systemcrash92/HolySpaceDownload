@@ -65,6 +65,20 @@ jspm_packages/
 build/
 dist/
 out/
+Build/
+
+# Installers and binaries
+*.dmg
+*.exe
+*.dmg
+link/
+
+# Duplicate files (keep only in hosting/)
+# index.html
+# script.js
+# styles.css
+# images/
+# logo/
 
 # Temporary folders
 tmp/
